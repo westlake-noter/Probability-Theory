@@ -9,7 +9,7 @@ The source files are organized as follows:
 
 The repository will be updated as new notes or corrections become available.
 
-Compiled PDFs will be published through [GitHub Releases](https://github.com/westlake-noter/probability-theory-notes/releases). Please visit the Releases page for downloadable versions of the notes. The source tree is used to maintain the LaTeX files.
+Compiled PDFs will be published through [GitHub Releases](https://github.com/westlake-noter/Probability-Theory/releases). Please visit the Releases page for downloadable versions of the notes. The source tree is used to maintain the LaTeX files.
 
 ## Contributing
 
@@ -32,7 +32,7 @@ This repository is released under the MIT License. See [LICENSE](LICENSE) for de
 
 仓库将随新增笔记的整理及勘误持续更新。
 
-编译后的 PDF 将通过 [GitHub Releases](https://github.com/westlake-noter/probability-theory-notes/releases) 发布。请前往 Releases 页面下载相应版本的笔记；源代码目录用于维护 LaTeX 文件。
+编译后的 PDF 将通过 [GitHub Releases](https://github.com/westlake-noter/Probability-Theory/releases) 发布。请前往 Releases 页面下载相应版本的笔记；源代码目录用于维护 LaTeX 文件。
 
 ## 贡献
 
