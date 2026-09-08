@@ -1,0 +1,1333 @@
+\chapter{Foundations of Probability}
+\section{Sample Space and $\sigma$-algebras}
+
+\begin{definitionenv}
+    The set of all possible outcomes of a random experiment is called the
+    \textbf{sample space}, denoted by $\Omega$.
+    Each element $\omega\in\Omega$ is called an \textbf{outcome}
+    (or \textbf{sample point}).
+\end{definitionenv}
+
+\begin{exampleenv}
+    \begin{itemize}
+        \item Flip a coin once:
+        $$
+        \Omega=\{H,T\}.
+        $$
+
+        \item Flip a coin twice:
+        $$
+        \Omega=\{HH,HT,TH,TT\}.
+        $$
+    \end{itemize}
+\end{exampleenv}
+
+\begin{definitionenv}
+    The collection $\mathcal{F}$ of subsets of $\Omega$ is a
+    $\sigma$-algebra on $\Omega$ if
+    \begin{enumerate}[label=(\alph*)]
+        \item $\varnothing\in\mathcal{F}$.
+
+        \item If
+        $$
+        A_1,A_2,\ldots,A_n,\ldots\in\mathcal{F},
+        $$
+        then
+        $$
+        \bigcup_{n}A_n\in\mathcal{F}.
+        $$
+
+        \item If $A\in\mathcal{F}$, then
+        $$
+        A^c\in\mathcal{F}.
+        $$
+    \end{enumerate}
+    An \textbf{event} is a subset of the sample space $\Omega$.
+
+    An event $A$ is called \textbf{measurable} if $A\in\mathcal{F}.$
+
+    $(\Omega,\mathcal{F})$ is called \textbf{measure space}.
+\end{definitionenv}
+
+\begin{exampleenv}
+    Let
+    $$
+    \Omega=\{HH,HT,TH,TT\}.
+    $$
+    Consider the following collections of subsets of $\Omega$:
+    \begin{enumerate}[label=(\arabic*)]
+        \item
+        $$
+        \mathcal{F}=\{\varnothing,\Omega\}.
+        $$
+
+        \item
+        $$
+        \mathcal{F}=2^{\Omega}.
+        $$
+
+        \item
+        $$
+        \mathcal{F}
+        =\bigl\{\varnothing,\Omega,\{HH\},\{HT,TH,TT\}\bigr\}.
+        $$
+
+        \item
+        $$
+        \mathcal{F}
+        =\bigl\{\varnothing,\Omega,\{HH,HT\},\{TH,TT\}\bigr\}.
+        $$
+    \end{enumerate}
+    The $\sigma$-algebra specifies what information is available.
+\end{exampleenv}
+
+\begin{propositionenv}
+    If $\mathcal{F}$ is a $\sigma$-algebra and
+    $A_1,A_2,\ldots\in\mathcal{F}$, then
+    $$
+    \bigcap_{n=1}^{\infty} A_n\in\mathcal{F}.
+    $$
+\end{propositionenv}
+
+\begin{proofenv}
+    By De Morgan's law,
+    $$
+    \bigcap_{n=1}^{\infty} A_n
+    =\left(\bigcup_{n=1}^{\infty} A_n^c\right)^c.
+    $$
+    Since $A_n\in\mathcal{F}$, we have $A_n^c\in\mathcal{F}$ for every $n$.
+    Hence
+    $$
+    \bigcup_{n=1}^{\infty} A_n^c\in\mathcal{F},
+    $$
+    and therefore
+    $$
+    \left(\bigcup_{n=1}^{\infty} A_n^c\right)^c\in\mathcal{F}.
+    $$
+\end{proofenv}
+
+\begin{exerciseenv}
+    Let $\mathcal{F}$ be a $\sigma$-algebra on a finite sample space $\Omega$.
+    How many elements can $\mathcal{F}$ contain?
+\end{exerciseenv}
+
+\begin{solutionenv}
+    Let $|\Omega|=n$. Since $\Omega$ is finite, every $\sigma$-algebra
+    $\mathcal{F}\subseteq 2^\Omega$ is finite.
+
+    Let
+    \[
+    B_1,\ldots,B_k
+    \]
+    be the minimal nonempty elements of $\mathcal{F}$.
+    These sets are pairwise disjoint and form a partition of $\Omega$.
+
+    Moreover, every $A\in\mathcal{F}$ is a union of some of the
+    $B_i$'s. Conversely, every union of the $B_i$'s belongs to
+    $\mathcal{F}$.
+
+    Hence
+    \[
+    \mathcal{F}
+    =
+    \left\{
+        \bigcup_{i\in I} B_i:
+        I\subseteq\{1,\ldots,k\}
+    \right\}.
+    \]
+
+    There are $2^k$ subsets $I\subseteq\{1,\ldots,k\}$, so
+    \[
+    |\mathcal{F}|=2^k,
+    \qquad 1\le k\le n.
+    \]
+
+    Therefore, the number of elements of a finite $\sigma$-algebra
+    must be a power of $2$.
+\end{solutionenv}
+
+\begin{definitionenv}
+    Given a measurable space $(\Omega,\mathcal{F})$, a \textbf{probability measure}
+    on $(\Omega,\mathcal{F})$ is a function
+    \[
+        \begin{array}{rcl}
+            \mathbb{P}:\mathcal{F} &\longrightarrow& [0,1]
+        \end{array}
+    \]
+    satisfying:
+    \begin{enumerate}[label=(\alph*)]
+        \item
+        \[
+            \mathbb{P}(\Omega)=1.
+        \]
+
+        \item If $A_1,A_2,\ldots\in\mathcal{F}$ are pairwise disjoint, then
+        \[
+            \mathbb{P}\left(\bigcup_{n=1}^{\infty}A_n\right)
+            =\sum_{n=1}^{\infty}\mathbb{P}(A_n).
+        \]
+    \end{enumerate}
+
+    $(\Omega,\mathcal{F},\mathbb{P})$ is  called \textbf{probability space}.
+\end{definitionenv}
+
+\begin{propositionenv}
+    Let $\mathbb{P}$ be a probability measure on $(\Omega,\mathcal{F})$. Then:
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\mathbb{P}(\varnothing)=0$.
+        \item For every $A\in\mathcal{F}$,
+        \[
+            \mathbb{P}(A^c)=1-\mathbb{P}(A).
+        \]
+        \item For every $A,B\in\mathcal{F}$,
+        \[
+            \mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).
+        \]
+    \end{enumerate}
+\end{propositionenv}
+
+\begin{proofenv}
+    \begin{enumerate}[label=(\arabic*)]
+        \item Since $\varnothing$ and $\Omega$ are disjoint,
+        \[
+            \mathbb{P}(\varnothing\cup\Omega)=\mathbb{P}(\varnothing)+\mathbb{P}(\Omega)=\mathbb{P}(\Omega).
+        \]
+        , hence
+        \[
+            \mathbb{P}(\varnothing)=0.
+        \]
+
+        \item Since $A\cap A^c=\varnothing$ and $A\cup A^c=\Omega$,
+        \[
+            1=\mathbb{P}(\Omega)=\mathbb{P}(A\cup A^c)=\mathbb{P}(A)+\mathbb{P}(A^c),
+        \]
+        so
+        \[
+            \mathbb{P}(A^c)=1-\mathbb{P}(A).
+        \]
+
+        \item Write
+        \[
+            A\cup B=A\cup(B\setminus A),
+        \]
+        where $A$ and $B\setminus A$ are disjoint. Hence
+        \[
+            \mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B\setminus A).
+        \]
+        Also,
+        \[
+            B=(B\setminus A)\cup(A\cap B)
+        \]
+        is a disjoint union, so
+        \[
+            \mathbb{P}(B)=\mathbb{P}(B\setminus A)+\mathbb{P}(A\cap B).
+        \]
+        Therefore
+        \[
+            \mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).
+        \]
+    \end{enumerate}
+\end{proofenv}
+
+\begin{propositionenv}
+    Let $\mathbb{P}$ be a probability measure on $(\Omega,\mathcal{F})$.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item If
+        \[
+            A_1 \subseteq A_2 \subseteq \cdots \subseteq A_n \subseteq \cdots,
+        \]
+        then the sequence $\{\mathbb{P}(A_n)\}_{n\ge 1}$ is non-decreasing and
+        \[
+            \lim_{n\to\infty}\mathbb{P}(A_n)
+            =
+            \mathbb{P}\left(\bigcup_{k=1}^{\infty} A_k\right).
+        \]
+
+        \item If
+        \[
+            B_1 \supseteq B_2 \supseteq \cdots \supseteq B_n \supseteq \cdots,
+        \]
+        then the sequence $\{\mathbb{P}(B_n)\}_{n\ge 1}$ is non-increasing and
+        \[
+            \lim_{n\to\infty}\mathbb{P}(B_n)
+            =
+            \mathbb{P}\left(\bigcap_{k=1}^{\infty} B_k\right).
+        \]
+    \end{enumerate}
+\end{propositionenv}
+
+\begin{proofenv}
+    \begin{enumerate}[label=(\roman*)]
+        \item Let
+        \[
+            A=\bigcup_{k=1}^{\infty}A_k
+        \]
+        and set $A_0=\varnothing$. Since $A_1\subseteq A_2\subseteq\cdots$,
+        \[
+            A
+            =
+            A_1
+            \cup (A_2\setminus A_1)
+            \cup (A_3\setminus A_2)
+            \cup \cdots,
+        \]
+        where the sets on the right-hand side are pairwise disjoint. Hence
+        \[
+            \mathbb{P}(A)
+            =
+            \sum_{k=1}^{\infty}
+            \mathbb{P}(A_k\setminus A_{k-1}).
+        \]
+        Therefore
+        \[
+        \begin{aligned}
+            \mathbb{P}(A)
+            &=
+            \lim_{n\to\infty}
+            \sum_{k=1}^{n}
+            \mathbb{P}(A_k\setminus A_{k-1}) \\
+            &=
+            \lim_{n\to\infty}\mathbb{P}(A_n).
+        \end{aligned}
+        \]
+        Thus
+        \[
+            \mathbb{P}(A_n)
+            \uparrow
+            \mathbb{P}\left(\bigcup_{k=1}^{\infty}A_k\right).
+        \]
+
+                \item Since
+        \[
+            B_1^c\subseteq B_2^c\subseteq\cdots,
+        \]
+        part (i) gives
+        \[
+            \mathbb{P}(B_n^c)
+            \uparrow
+            \mathbb{P}\left(\bigcup_{k=1}^{\infty}B_k^c\right).
+        \]
+        Using De Morgan's law and
+        $\mathbb{P}(B_n)=1-\mathbb{P}(B_n^c)$,
+        \[
+        \begin{aligned}
+            \lim_{n\to\infty}\mathbb{P}(B_n)
+            &=
+            1-\mathbb{P}\left(\bigcup_{k=1}^{\infty}B_k^c\right) \\
+            &=
+            \mathbb{P}\left(\bigcap_{k=1}^{\infty}B_k\right).
+        \end{aligned}
+        \]
+        Hence
+        \[
+            \mathbb{P}(B_n)
+            \downarrow
+            \mathbb{P}\left(\bigcap_{k=1}^{\infty}B_k\right).
+        \]
+    \end{enumerate}
+\end{proofenv}
+
+\begin{definitionenv}
+    For a real sequence $(a_n)_{n\ge1}$, define
+    \[
+        \limsup_{n\to\infty} a_n
+        :=
+        \inf_{n\ge1}\sup_{k\ge n} a_k,
+        \qquad
+        \liminf_{n\to\infty} a_n
+        :=
+        \sup_{n\ge1}\inf_{k\ge n} a_k.
+    \]
+    Equivalently, they are the limits of the decreasing tail suprema
+    $\sup_{k\ge n}a_k$ and the increasing tail infima
+    $\inf_{k\ge n}a_k$, respectively.
+\end{definitionenv}
+
+\begin{definitionenv}
+    For a sequence of sets $(A_n)_{n\ge1}$, define
+    \[
+        \limsup_{n\to\infty} A_n
+        :=
+        \bigcap_{n=1}^{\infty}\bigcup_{k\ge n} A_k,
+        \qquad
+        \liminf_{n\to\infty} A_n
+        :=
+        \bigcup_{n=1}^{\infty}\bigcap_{k\ge n} A_k.
+    \]
+    Equivalently,
+    \[
+        x\in\limsup_{n\to\infty}A_n
+        \iff
+        x\in A_n \text{ for infinitely many }n,
+    \]
+    while
+    \[
+        x\in\liminf_{n\to\infty}A_n
+        \iff
+        x\in A_n \text{ for all but finitely many }n.
+    \]
+    In particular,
+    \[
+        \liminf_{n\to\infty}A_n
+        \subseteq
+        \limsup_{n\to\infty}A_n.
+    \]
+\end{definitionenv}
+
+
+\begin{definitionenv}
+    Let $A,B\in\mathcal{F}$ with $\mathbb{P}(B)>0$.
+    The \textbf{conditional probability} of $A$ given $B$ is defined by
+    \[
+        \mathbb{P}(A\mid B)
+        :=
+        \frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.
+    \]
+\end{definitionenv}
+
+\begin{propositionenv}
+    Let $B_1,B_2,\ldots$ be pairwise disjoint events such that
+    \[
+        \bigcup_k B_k=\Omega
+    \]
+    and
+    \[
+        \mathbb{P}(B_k)>0
+        \qquad\text{for every }k.
+    \]
+    Then, for every event $A$,
+    \[
+        \mathbb{P}(A)
+        =
+        \sum_k
+        \mathbb{P}(A\mid B_k)\mathbb{P}(B_k).
+    \]
+\end{propositionenv}
+
+\begin{proofenv}
+    Since the sets $B_k$ are pairwise disjoint and
+    $\bigcup_k B_k=\Omega$,
+    \[
+        A
+        =
+        A\cap\Omega
+        =
+        A\cap\left(\bigcup_k B_k\right)
+        =
+        \bigcup_k (A\cap B_k),
+    \]
+    where the sets $A\cap B_k$ are pairwise disjoint. Hence
+    \[
+        \mathbb{P}(A)
+        =
+        \sum_k \mathbb{P}(A\cap B_k).
+    \]
+    By the definition of conditional probability,
+    \[
+        \mathbb{P}(A\cap B_k)
+        =
+        \mathbb{P}(A\mid B_k)\mathbb{P}(B_k).
+    \]
+    Therefore
+    \[
+        \mathbb{P}(A)
+        =
+        \sum_k
+        \mathbb{P}(A\mid B_k)\mathbb{P}(B_k).
+    \]
+\end{proofenv}
+
+\begin{definitionenv}
+    Two events $A$ and $B$ are said to be \textbf{independent} if
+    \[
+        \mathbb{P}(A\cap B)
+        =
+        \mathbb{P}(A)\mathbb{P}(B).
+    \]
+
+    More generally, a sequence of events
+    \[
+        A_1,A_2,\ldots
+    \]
+    is said to be \textbf{independent} if, for every finite collection of
+    distinct indices $k_1,\ldots,k_m$,
+    \[
+        \mathbb{P}\left(
+            \bigcap_{j=1}^{m} A_{k_j}
+        \right)
+        =
+        \prod_{j=1}^{m}
+        \mathbb{P}(A_{k_j}).
+    \]
+\end{definitionenv}
+
+\begin{remark}
+    For events $(A_k)_{k\ge1}$,
+    \[
+        \limsup_{k\to\infty}A_k
+    \]
+    is the event that infinitely many of the $A_k$'s occur.
+\end{remark}
+
+\begin{propositionenv}
+    Let $(A_k)_{k\ge 1}$ be a sequence of events.
+
+    \begin{enumerate}[label=(\arabic*)]
+        \item If
+        \[
+            \sum_{k=1}^{\infty}\mathbb{P}(A_k)<\infty,
+        \]
+        then
+        \[
+            \mathbb{P}\left(
+                \limsup_{k\to\infty}A_k
+            \right)=0.
+        \]
+
+        \item If
+        \[
+            \sum_{k=1}^{\infty}\mathbb{P}(A_k)=\infty
+        \]
+        and the events $A_1,A_2,\ldots$ are independent, then
+        \[
+            \mathbb{P}\left(
+                \limsup_{k\to\infty}A_k
+            \right)=1.
+        \]
+    \end{enumerate}
+\end{propositionenv}
+
+\begin{proofenv}
+    \begin{enumerate}[label=(\arabic*)]
+        \item For every $n$,
+        \[
+            \limsup_{k\to\infty}A_k
+            \subseteq
+            \bigcup_{k\ge n}A_k.
+        \]
+        Hence
+        \[
+            0
+            \le
+            \mathbb{P}\left(\limsup_{k\to\infty}A_k\right)
+            \le
+            \mathbb{P}\left(\bigcup_{k\ge n}A_k\right)
+            \le
+            \sum_{k=n}^{\infty}\mathbb{P}(A_k).
+        \]
+        Letting $n\to\infty$, the tail sum tends to $0$, so
+        \[
+            \mathbb{P}\left(\limsup_{k\to\infty}A_k\right)=0.
+        \]
+
+        \item For $m\ge n$, by independence,
+        \[
+            \mathbb{P}\left(\bigcap_{k=n}^{m}A_k^c\right)
+            =
+            \prod_{k=n}^{m}\bigl(1-\mathbb{P}(A_k)\bigr)
+            \le
+            \exp\left(
+                -\sum_{k=n}^{m}\mathbb{P}(A_k)
+            \right).
+        \]
+        Letting $m\to\infty$ gives
+        \[
+            \mathbb{P}\left(\bigcap_{k=n}^{\infty}A_k^c\right)=0.
+        \]
+        Therefore
+        \[
+        \begin{aligned}
+            \mathbb{P}\left(
+                \left(\limsup_{k\to\infty}A_k\right)^c
+            \right)
+            &=
+            \mathbb{P}\left(
+                \bigcup_{n=1}^{\infty}
+                \bigcap_{k=n}^{\infty}A_k^c
+            \right) \\
+            &\le
+            \sum_{n=1}^{\infty}
+            \mathbb{P}\left(
+                \bigcap_{k=n}^{\infty}A_k^c
+            \right)
+            =0.
+        \end{aligned}
+        \]
+        Hence
+        \[
+            \mathbb{P}\left(\limsup_{k\to\infty}A_k\right)=1.
+        \]
+    \end{enumerate}
+\end{proofenv}
+
+\begin{exampleenv}[Gambler's ruin]
+    Consider a random walk on the states
+    \[
+        \{0,1,\ldots,N\}.
+    \]
+    Starting from a state $k\in\{1,\ldots,N-1\}$, the walk moves
+    \[
+        k\to k+1 \quad \text{with probability } p,
+    \]
+    and
+    \[
+        k\to k-1 \quad \text{with probability } q,
+    \]
+    where
+    \[
+        p+q=1.
+    \]
+
+    Let
+    \[
+        \rho_k
+        :=
+        \mathbb{P}
+        \bigl(
+            \text{hit $N$ before $0$}
+            \,\big|\,
+            \text{start at $k$}
+        \bigr).
+    \]
+    Then
+    \[
+        \rho_0=0,
+        \qquad
+        \rho_N=1.
+    \]
+
+    Conditioning on the first step gives, for $1\le k\le N-1$,
+    \[
+        \rho_k
+        =
+        p\rho_{k+1}+q\rho_{k-1}.
+    \]
+    Hence
+    \[
+        p(\rho_{k+1}-\rho_k)
+        =
+        q(\rho_k-\rho_{k-1}),
+    \]
+    so
+    \[
+        \rho_{k+1}-\rho_k
+        =
+        \frac{q}{p}
+        (\rho_k-\rho_{k-1}).
+    \]
+    Therefore,
+    \[
+        \rho_k-\rho_{k-1}
+        =
+        \left(\frac{q}{p}\right)^{k-1}
+        (\rho_1-\rho_0).
+    \]
+
+    Since
+    \[
+        1
+        =
+        \rho_N-\rho_0
+        =
+        \sum_{k=1}^{N}
+        (\rho_k-\rho_{k-1}),
+    \]
+    we obtain
+    \[
+        1
+        =
+        \left(
+            1+\frac{q}{p}
+            +\left(\frac{q}{p}\right)^2
+            +\cdots
+            +\left(\frac{q}{p}\right)^{N-1}
+        \right)
+        (\rho_1-\rho_0).
+    \]
+
+    \begin{enumerate}[label=(\arabic*)]
+        \item If
+        \[
+            p=q=\frac12,
+        \]
+        then
+        \[
+            \rho_1-\rho_0=\frac1N,
+        \]
+        and therefore
+        \[
+            \rho_k
+            =
+            \sum_{j=1}^{k}
+            (\rho_j-\rho_{j-1})
+            =
+            \frac{k}{N}.
+        \]
+
+        \item If $p\ne q$, then
+        \[
+            \rho_1-\rho_0
+            =
+            \frac{1-\frac{q}{p}}
+                 {1-\left(\frac{q}{p}\right)^N}.
+        \]
+        Hence
+        \[
+            \rho_k-\rho_{k-1}
+            =
+            \left(\frac{q}{p}\right)^{k-1}
+            \frac{1-\frac{q}{p}}
+                 {1-\left(\frac{q}{p}\right)^N},
+        \]
+        and summing from $1$ to $k$ yields
+        \[
+            \rho_k
+            =
+            \frac{
+                1-\left(\frac{q}{p}\right)^k
+            }{
+                1-\left(\frac{q}{p}\right)^N
+            }.
+        \]
+    \end{enumerate}
+
+    Thus
+    \[
+        \boxed{
+        \rho_k
+        =
+        \begin{cases}
+            \dfrac{k}{N},
+            & p=q=\dfrac12, \\[1.2ex]
+            \dfrac{
+                1-\left(\frac{q}{p}\right)^k
+            }{
+                1-\left(\frac{q}{p}\right)^N
+            },
+            & p\ne q.
+        \end{cases}}
+    \]
+\end{exampleenv}
+
+\begin{definitionenv}
+A \textbf{random variable} is a function
+\[
+    X:\Omega\to\mathbb R
+\]
+such that, for every open set $A\subseteq\mathbb R$,
+\[
+    X^{-1}(A)
+    =
+    \{\omega\in\Omega:X(\omega)\in A\}
+    \in\mathcal F.
+\]
+Equivalently, $X$ is $\mathcal F$-measurable.
+\end{definitionenv}
+
+\begin{exampleenv}
+
+Let
+\[
+    \Omega=\{HH,HT,TH,TT\}.
+\]
+
+Define $X_1,X_2:\Omega\to\mathbb R$ by
+\[
+    X_1(HH)=X_1(HT)=1,
+    \qquad
+    X_1(TH)=X_1(TT)=-1,
+\]
+and
+\[
+    X_2(HH)=X_2(TH)=1,
+    \qquad
+    X_2(HT)=X_2(TT)=-1.
+\]
+
+Let
+\[
+    X=X_1+X_2.
+\]
+
+Then the smallest $\sigma$-algebras that make $X_1$, $X_2$, and $X$
+random variables are, respectively,
+\[
+    \mathcal F_1
+    =
+    \sigma\bigl(\{HH,HT\},\{TH,TT\}\bigr),
+\]
+\[
+    \mathcal F_2
+    =
+    \sigma\bigl(\{HH,TH\},\{HT,TT\}\bigr),
+\]
+and
+\[
+    \mathcal F_3
+    =
+    \sigma\bigl(\{HH\},\{HT,TH\},\{TT\}\bigr).
+\]
+
+\end{exampleenv}
+
+\begin{exampleenv}
+Let
+\[
+    \Omega=\{1,2,3,4,5,6\},
+    \qquad
+    \mathcal F
+    =
+    \sigma\bigl(\{1,3,5\},\{2,4,6\}\bigr).
+\]
+
+The function
+\[
+    X_1(k)=-k
+\]
+is not $\mathcal F$-measurable, while
+\[
+    X_2(k)
+    =
+    \begin{cases}
+        1, & k \text{ is odd},\\
+        2, & k \text{ is even},
+    \end{cases}
+\]
+is $\mathcal F$-measurable.
+\end{exampleenv}
+
+\begin{definitionenv}
+\begin{enumerate}
+    \item Let $p\in[0,1]$. A random variable $X$ has the
+\textbf{Bernoulli distribution} with parameter $p$, written
+\[
+    X\sim\operatorname{Ber}(p),
+\]
+if
+\[
+    \mathbb{P}(X=1)=p,
+    \qquad
+    \mathbb{P}(X=0)=1-p.
+\]
+
+\item Let $n\in\mathbb{N}_+$ and $p\in[0,1]$. A random variable $X$ has the
+\textbf{binomial distribution} with parameters $(n,p)$, written
+\[
+    X\sim\operatorname{Bin}(n,p),
+\]
+if
+\[
+    \mathbb{P}(X=k)
+    =
+    \binom{n}{k}p^k(1-p)^{n-k},
+    \qquad
+    k=0,\ldots,n.
+\]
+\end{enumerate}
+\end{definitionenv}
+
+\begin{remark}
+If $p$ is small and $n$ is large with
+\[
+    np=\lambda>0,
+\]
+then, for fixed $k$,
+\[
+\begin{aligned}
+    \mathbb{P}(X=k)
+    &=
+    \binom{n}{k}
+    \left(\frac{\lambda}{n}\right)^k
+    \left(1-\frac{\lambda}{n}\right)^{n-k} \\
+    &\longrightarrow
+    \frac{\lambda^k}{k!}e^{-\lambda}.
+\end{aligned}
+\]
+\end{remark}
+
+\begin{definitionenv}
+\begin{enumerate}
+    \item Let $\lambda>0$. A random variable $X$ has the
+\textbf{Poisson distribution} with parameter $\lambda$, written
+\[
+    X\sim\operatorname{Pois}(\lambda),
+\]
+if
+\[
+    \mathbb{P}(X=k)
+    =
+    e^{-\lambda}\frac{\lambda^k}{k!},
+    \qquad
+    k=0,1,2,\ldots.
+\]
+
+\item Let $p\in(0,1]$. A random variable $X$ has the
+\textbf{geometric distribution} with parameter $p$, written
+\[
+    X\sim\operatorname{Geo}(p),
+\]
+if
+\[
+    \mathbb{P}(X=k)
+    =
+    (1-p)^{k-1}p,
+    \qquad
+    k\ge1.
+\]
+\end{enumerate}
+\end{definitionenv}
+
+\begin{propositionenv}
+If
+\[
+    X\sim\operatorname{Geo}(p),
+\]
+then
+\[
+    \mathbb{P}(X>n)=(1-p)^n,
+    \qquad
+    n\ge0.
+\]
+\end{propositionenv}
+
+\begin{proofenv}
+\[
+\begin{aligned}
+    \mathbb{P}(X>n)
+    &=
+    \sum_{k=n+1}^{\infty}
+    p(1-p)^{k-1} \\
+    &=
+    p(1-p)^n
+    \sum_{k=0}^{\infty}(1-p)^k \\
+    &=
+    (1-p)^n.
+\end{aligned}
+\]
+\end{proofenv}
+
+\begin{propositionenv}
+A geometric random variable has the \textbf{memoryless property}:
+\[
+    \mathbb{P}(X>m+n\mid X>m)
+    =
+    \mathbb{P}(X>n).
+\]
+\end{propositionenv}
+
+\begin{proofenv}
+\[
+\begin{aligned}
+    \mathbb{P}(X>m+n\mid X>m)
+    &=
+    \frac{\mathbb{P}(X>m+n)}
+         {\mathbb{P}(X>m)} \\
+    &=
+    \frac{(1-p)^{m+n}}{(1-p)^m} \\
+    &=
+    (1-p)^n \\
+    &=
+    \mathbb{P}(X>n).
+\end{aligned}
+\]
+\end{proofenv}
+
+\begin{exerciseenv}
+Let $X$ be a discrete random variable satisfying
+\[
+    \mathbb{P}(X>m+n\mid X>m)
+    =
+    \mathbb{P}(X>n)
+\]
+for all $m,n\ge0$. Show that
+\[
+    X\sim\operatorname{Geo}(p)
+\]
+for some $p\in(0,1]$.
+\end{exerciseenv}
+
+\begin{remark}[Stirling's formula]
+\[
+    n!
+    \sim
+    \sqrt{2\pi n}
+    \left(\frac ne\right)^n.
+\]
+That is,
+\[
+    \lim_{n\to\infty}
+    \frac{n!}
+    {\sqrt{2\pi n}\left(\frac ne\right)^n}
+    =1.
+\]
+
+Taking logarithms in Stirling's formula gives
+\[
+\begin{aligned}
+    \log(n!)
+    &=
+    \frac12\log(2\pi n)
+    +n(\log n-1)
+    +o(1).
+\end{aligned}
+\]
+Hence,
+\[
+    \lim_{n\to\infty}
+    \frac{\log(n!)}{n\log n}
+    =1.
+\]
+\end{remark}
+
+\begin{definitionenv}
+Let $X:\Omega\to\mathbb R$ be a random variable. The
+\textbf{distribution function} of $X$ is
+\[
+    F:\mathbb R\to[0,1],
+\]
+defined by
+\[
+    F(x)=\mathbb P(X\le x).
+\]
+
+If $F$ is differentiable, then
+\[
+    f(x):=F'(x)
+\]
+is called the \textbf{probability density function} of $X$.
+\end{definitionenv}
+
+\begin{propositionenv}
+The distribution function $F$ is right continuous.
+\end{propositionenv}
+
+\begin{proofenv}
+Let
+\[
+    x_n\downarrow x.
+\]
+Then
+\[
+    \{X\le x_1\}\supseteq
+    \{X\le x_2\}\supseteq\cdots
+\]
+and hence
+\[
+\begin{aligned}
+    \lim_{n\to\infty}F(x_n)
+    &=
+    \lim_{n\to\infty}\mathbb P(X\le x_n)\\
+    &=
+    \mathbb P\left(
+        \bigcap_{n=1}^{\infty}\{X\le x_n\}
+    \right)\\
+    &=
+    \mathbb P(X\le x)\\
+    &=F(x).
+\end{aligned}
+\]
+Therefore $F$ is right continuous.
+\end{proofenv}
+
+\begin{exampleenv}
+If
+\[
+    X\sim\operatorname{Ber}(p),
+\]
+then
+\[
+    F(x)=\mathbb P(X\le x)
+\]
+is given by
+\[
+F(x)=
+\begin{cases}
+0,&x<0,\\
+1-p,&0\le x<1,\\
+1,&x\ge1.
+\end{cases}
+\]
+\end{exampleenv}
+
+\begin{remark}
+For a continuous random variable $X$ with density function $f$,
+\[
+    \mathbb P(a<X<b)
+    =
+    F(b)-F(a)
+    =
+    \int_a^b f(x)\,dx.
+\]
+\end{remark}
+
+\begin{exampleenv}
+A random variable $X$ is uniformly distributed on $[a,b]$, written
+\[
+    X\sim\operatorname{Unif}[a,b],
+\]
+if its density function is
+\[
+    f(x)=
+    \begin{cases}
+        \dfrac1{b-a},&x\in[a,b],\\[6pt]
+        0,&\text{otherwise}.
+    \end{cases}
+\]
+\end{exampleenv}
+
+\begin{definitionenv}
+Let $\lambda>0$. A random variable $X$ has the
+\textbf{exponential distribution} with parameter $\lambda$, written
+\[
+    X\sim\operatorname{Exp}(\lambda),
+\]
+if its density function is
+\[
+f(x)=
+\begin{cases}
+    \lambda e^{-\lambda x},&x\ge0,\\
+    0,&x<0.
+\end{cases}
+\]
+\end{definitionenv}
+
+
+\begin{propositionenv}
+If
+\[
+    X\sim\operatorname{Exp}(\lambda),
+\]
+then
+\[
+    \mathbb P(X>t)=e^{-\lambda t},
+    \qquad t\ge0.
+\]
+\end{propositionenv}
+
+\begin{proofenv}
+\[
+\begin{aligned}
+    \mathbb P(X>t)
+    &=
+    \int_t^\infty
+    \lambda e^{-\lambda x}\,dx\\
+    &=
+    \left[-e^{-\lambda x}\right]_t^\infty\\
+    &=
+    e^{-\lambda t}.
+\end{aligned}
+\]
+\end{proofenv}
+
+
+\begin{propositionenv}
+The exponential distribution satisfies the memoryless property:
+\[
+    \mathbb P(X>s+t\mid X>s)
+    =
+    \mathbb P(X>t).
+\]
+\end{propositionenv}
+
+\begin{proofenv}
+\[
+\begin{aligned}
+    \mathbb P(X>s+t\mid X>s)
+    &=
+    \frac{\mathbb P(X>s+t)}
+    {\mathbb P(X>s)}\\
+    &=
+    \frac{e^{-\lambda(s+t)}}
+    {e^{-\lambda s}}\\
+    &=
+    e^{-\lambda t}\\
+    &=
+    \mathbb P(X>t).
+\end{aligned}
+\]
+\end{proofenv}
+
+\begin{exerciseenv}
+Show that the exponential distribution is the only continuous distribution
+satisfying the memoryless property.
+\end{exerciseenv}
+
+\begin{definitionenv}
+A random variable $X$ has the normal distribution with parameters
+$\mu\in\mathbb R$ and $\sigma>0$, written
+\[
+    X\sim N(\mu,\sigma^2),
+\]
+if its density function is
+\[
+    f(x)
+    =
+    \frac1{\sqrt{2\pi}\sigma}
+    \exp\left(
+        -\frac{(x-\mu)^2}{2\sigma^2}
+    \right),
+    \qquad x\in\mathbb R.
+\]
+\end{definitionenv}
+
+\begin{remark}
+The constant in the density is chosen so that
+\[
+    \int_{\mathbb R}f(x)\,dx=1.
+\]
+It remains to show that
+\[
+    \int_{\mathbb R}e^{-x^2/2}\,dx=\sqrt{2\pi}.
+\]
+\end{remark}
+
+\begin{proofenv}
+Let
+\[
+    I=\int_{\mathbb R}e^{-x^2/2}\,dx.
+\]
+Then
+\[
+\begin{aligned}
+    I^2
+    &=
+    \iint_{\mathbb R^2}
+    e^{-(x^2+y^2)/2}\,dxdy .
+\end{aligned}
+\]
+
+Using polar coordinates,
+\[
+    x=r\cos\theta,\qquad y=r\sin\theta,
+\]
+we obtain
+\[
+\begin{aligned}
+    I^2
+    &=
+    \int_0^{2\pi}
+    \int_0^\infty
+    e^{-r^2/2}r\,drd\theta\\
+    &=
+    \int_0^{2\pi}
+    \int_0^\infty
+    e^{-u}\,du\,d\theta
+    \qquad
+    \left(u=\frac{r^2}{2}\right)\\
+    &=2\pi .
+\end{aligned}
+\]
+Hence
+\[
+    I=\sqrt{2\pi}.
+\]
+\end{proofenv}
+
+\begin{definitionenv}
+Let $X$ be a random variable.
+
+If $X$ is discrete and
+\[
+    \mathbb P(X=x_k)=p_k,
+\]
+with
+\[
+    \sum_k p_k|x_k|<+\infty,
+\]
+then the expectation of $X$ is defined by
+\[
+    \mathbb EX
+    :=
+    \sum_k p_kx_k.
+\]
+\end{definitionenv}
+
+
+\begin{definitionenv}
+If $X$ has density function $f$ and
+\[
+    \int_{\mathbb R}|x|f(x)\,dx<+\infty,
+\]
+then
+\[
+    \mathbb EX
+    :=
+    \int_{\mathbb R}x f(x)\,dx.
+\]
+\end{definitionenv}
+
+
+\begin{remark}
+More generally, on a probability space $(\Omega,\mathcal F,\mathbb P)$,
+if
+\[
+    \int_\Omega |X|\,d\mathbb P<+\infty,
+\]
+then
+\[
+    \mathbb EX
+    =
+    \int_\Omega X\,d\mathbb P.
+\]
+\end{remark}
+
+\begin{definitionenv}
+The variance of a random variable $X$ is defined by
+\[
+    \operatorname{Var}(X)
+    :=
+    \mathbb E(X-\mathbb EX)^2.
+\]
+Equivalently,
+\[
+    \operatorname{Var}(X)
+    =
+    \mathbb EX^2-(\mathbb EX)^2.
+\]
+\end{definitionenv}
+
+
+\begin{theoremenv}
+\textbf{(Jensen's inequality)}
+Let
+\[
+    J:\mathbb R\to\mathbb R
+\]
+be convex. Then
+\[
+    \mathbb E J(X)
+    \ge
+    J(\mathbb EX).
+\]
+\end{theoremenv}
+
+
+\begin{exampleenv}
+For $p\ge1$,
+\[
+    J(x)=|x|^p
+\]
+is convex. Hence
+\[
+    \mathbb E|X|^p
+    \ge
+    |\mathbb EX|^p.
+\]
+\end{exampleenv}
+
+
+\begin{theoremenv}
+\textbf{(Hölder's inequality)}
+Let $p,q\in[1,\infty)$ satisfy
+\[
+    \frac1p+\frac1q=1.
+\]
+Then
+\[
+    |\mathbb E(XY)|
+    \le
+    (\mathbb E|X|^p)^{1/p}
+    (\mathbb E|Y|^q)^{1/q}.
+\]
+\end{theoremenv}

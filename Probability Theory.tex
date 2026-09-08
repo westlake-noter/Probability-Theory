@@ -1,0 +1,256 @@
+\documentclass{book}
+\usepackage{fix-cm}
+\usepackage{lmodern}
+\usepackage{extarrows}
+\usepackage{newtxtext, geometry, amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm} % 设置定理环境，要在amsmath后用
+\usepackage{bbm}
+\usepackage{interval}
+\usepackage{xpatch} % 用于去除amsthm定义的编号后面的点
+\usepackage[strict]{changepage} % 提供一个 adjustwidth 环境
+\usepackage{multicol} % 用于分栏
+\usepackage{cancel}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[fontsize=14pt]{fontsize} % 字号设置
+\usepackage{esvect} % 实现向量箭头输入（显示效果好于\vec{}和\overrightarrow{}），格式为\vv{⟨向量符号⟩}或\vv*{⟨向量符号⟩}{⟨下标⟩} 
+\usepackage[
+            colorlinks, % 超链接以颜色来标识，而并非使用默认的方框来标识
+            linkcolor=mlv,
+            anchorcolor=mlv,
+            citecolor=mlv % 设置各种超链接的颜色
+            ]
+            {hyperref} % 实现引用超链接功能
+\usepackage{float}
+\usepackage{adjustbox}
+\numberwithin{figure}{section}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, positioning, patterns}
+\usepackage{tcolorbox} % 盒子效果
+\tcbuselibrary{breakable}
+\tcbuselibrary{most} % tcolorbox宏包的设置，详见宏包说明文档
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\numberwithin{equation}{section}
+
+\usepackage{authblk} 
+\geometry{a4paper,centering,scale=0.8}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{patterns,positioning,decorations.pathreplacing}
+
+% ————————————————————————————————————自定义颜色————————————————————————————————————
+\definecolor{mlv}{RGB}{40, 137, 124} % 墨绿
+\definecolor{qlv}{RGB}{240, 251, 248} % 浅绿
+\definecolor{slv}{RGB}{33, 96, 92} % 深绿
+\definecolor{qlan}{RGB}{239, 249, 251} % 浅蓝
+\definecolor{slan}{RGB}{3, 92, 127} % 深蓝
+\definecolor{hlan}{RGB}{82, 137, 168} % 灰蓝
+\definecolor{qhuang}{RGB}{246, 250, 235} % 浅黄
+\definecolor{shuang}{RGB}{77, 82, 59} % 深黄
+\definecolor{qzi}{RGB}{240, 243, 252} % 浅紫
+\definecolor{szi}{RGB}{49, 55, 70} % 深紫
+\definecolor{pink}{RGB}{220,115,156}
+% 将RGB换为rgb，颜色数值取值范围改为0到1
+
+% ————————————————————————————————————盒子设置————————————————————————————————————
+% tolorbox提供了tcolorbox环境，其格式如下：
+% 第一种格式：\begin{tcolorbox}[colback=⟨背景色⟩, colframe=⟨框线色⟩, arc=⟨转角弧度半径⟩, boxrule=⟨框线粗⟩]   \end{tcolorbox}
+% 其中设置arc=0mm可得到直角；boxrule可换为toprule/bottomrule/leftrule/rightrule可分别设置对应边宽度，但是设置为0mm时仍有细边，若要绘制单边框线推荐使用第二种格式
+% 方括号内加上title=⟨标题⟩, titlerule=⟨标题背景线粗⟩, colbacktitle=⟨标题背景线色⟩可为盒子加上标题及其背景线
+\newenvironment{box1}{
+    \begin{tcolorbox}[colback=hlan, colframe=hlan, arc = 1mm]
+    }
+    {\end{tcolorbox}}
+\newenvironment{box2}{
+    \begin{tcolorbox}[colback=hlan!5!white, colframe=hlan, arc = 1mm]
+    }
+    {\end{tcolorbox}}
+% 第二种格式：\begin{tcolorbox}[enhanced, colback=⟨背景色⟩, boxrule=0pt, frame hidden, borderline={⟨框线粗⟩}{⟨偏移量⟩}{⟨框线色⟩}]   {\end{tcolorbox}}
+% 将borderline换为borderline east/borderline west/borderline north/borderline south可分别为四边添加框线，同一边可以添加多条
+% 偏移量为正值时，框线向盒子内部移动相应距离，负值反之
+\newenvironment{box3}{
+    \begin{tcolorbox}[enhanced, colback=hlan!5!white, boxrule=0pt, frame hidden,
+        borderline south={0.5mm}{0.1mm}{hlan}]
+    }
+    {\end{tcolorbox}}
+    \newenvironment{lvse}{
+    \begin{tcolorbox}[breakable,enhanced, colback=qlv, boxrule=0pt, frame hidden,
+        borderline west={0.7mm}{0.1mm}{slv}]
+    }
+    {\end{tcolorbox}}
+\newenvironment{lanse}{
+    \begin{tcolorbox}[breakable,enhanced, colback=qlan, boxrule=0pt, frame hidden,
+        borderline west={0.7mm}{0.1mm}{slan}]
+    }
+    {\end{tcolorbox}}
+\newenvironment{huangse}{
+    \begin{tcolorbox}[breakable,enhanced, colback=qhuang, boxrule=0pt, frame hidden,
+        borderline west={0.7mm}{0.1mm}{shuang}]
+    }
+    {\end{tcolorbox}}
+\newenvironment{zise}{
+    \begin{tcolorbox}[breakable,enhanced, colback=qzi, boxrule=0pt, frame hidden,
+        borderline west={0.7mm}{0.1mm}{szi}]
+    }
+    {\end{tcolorbox}}
+\newenvironment{pinkenv}{\begin{tcolorbox}[breakable,enhanced, colback=pink!10!white, boxrule=0pt, frame hidden,
+        borderline west={0.7mm}{0.1mm}{pink!30!black}]}
+    {\end{tcolorbox}}
+% tcolorbox宏包还提供了\tcbox指令，用于生成行内盒子，可制作高光效果
+\newcommand{\hl}[1]{
+    \tcbox[on line, arc=0pt, colback=hlan!5!white, colframe=hlan!5!white, boxsep=1pt, left=1pt, right=1pt, top=1.5pt, bottom=1.5pt, boxrule=0pt]
+{\bfseries \color{hlan}#1}}
+% 其中on line将盒子放置在本行（缺失会跳到下一行），boxsep用于控制文本内容和边框的距离，left、right、top、bottom则分别在boxsep的参数的基础上分别控制四边距离
+
+
+\newenvironment{box_blueness}{\begin{tcolorbox}
+[colback=Emerald!10,colframe=cyan!40!black,title=\textbf{Definition}]
+\end{tcolorbox}}
+
+%挂链接（懒）https://zhuanlan.zhihu.com/p/336171630
+
+% ————————————————————————————————————定理类环境设置————————————————————————————————————
+\newtheoremstyle{t}{0pt}{}{}{\parindent}{\bfseries}{}{1em}{} % 定义新定理风格。格式如下：
+%\newtheoremstyle{⟨风格名⟩}
+%                {⟨上方间距⟩} % 若留空，则使用默认值
+%                {⟨下方间距⟩} % 若留空，则使用默认值
+%                {⟨主体字体⟩} % 如 \itshape
+%                {⟨缩进长度⟩} % 若留空，则无缩进；可以使用 \parindent 进行正常段落缩进
+%                {⟨定理头字体⟩} % 如 \bfseries
+%                {⟨定理头后的标点符号⟩} % 如点号、冒号
+%                {⟨定理头后的间距⟩} % 不可留空，若设置为 { }，则表示正常词间间距；若设置为 {\newline}，则环境内容开启新行
+%                {⟨定理头格式指定⟩} % 一般留空
+% 定理风格决定着由 \newtheorem 定义的环境的具体格式，有三种定理风格是预定义的，它们分别是：
+% plain: 环境内容使用意大利斜体，环境上下方添加额外间距
+% definition: 环境内容使用罗马正体，环境上下方添加额外间距
+% remark: 环境内容使用罗马正体，环境上下方不添加额外间距
+\theoremstyle{t} % 设置定理风格
+\swapnumbers
+\newtheorem{theorem}{\color{shuang} Theorem}[section]
+\newtheorem{definitin}[theorem]{\color{slv} Definition} % 定义定义环境，格式为\newtheorem{⟨环境名⟩}{⟨定理头文本⟩}[⟨上级计数器⟩]或\newtheorem{⟨环境名⟩}[⟨共享计数器⟩]{⟨定理头文本⟩}，其变体\newtheorem*不带编号
+\newtheorem{example}[theorem]{\color{szi} Example}
+\newtheorem{application}[theorem]{\color{szi} Application}
+\newtheorem*{solution}{\color{slan} Solution} % 定义无编号的解答环境
+\newtheorem*{prof}{\color{slan} Proof} % 定义无编号的证明环境
+\newtheorem{proposition}[theorem]{\color{shuang}Proposition}
+\newtheorem{corollary}[theorem]{\color{shuang}Corollary}
+\newtheorem{remarkthm}[theorem]{Remark}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{notation}[theorem]{\color{slv}Notation}
+\newtheorem{lemma}[theorem]{\color{shuang}Lemma}
+\newtheorem*{remarkthm*}{Remark}
+\newtheorem*{example*}{\color{szi} Example}
+\newtheorem{exercise}[theorem]{\color{shuang}Exercise}
+\newenvironment{definitionenv}{\begin{lvse}\begin{definitin}}{\end{definitin}\end{lvse}}
+\newenvironment{notationenv}{\begin{lvse}\begin{notation}}{\end{notation}\end{lvse}}
+\newenvironment{proofenv}{\begin{lanse}\begin{prof}}{$\hfill \square$\end{prof}\end{lanse}}
+\newenvironment{theoremenv}{\begin{huangse}\begin{theorem}}{\end{theorem}\end{huangse}}
+\newenvironment{lemmaenv}{\begin{huangse}\begin{lemma}}{\end{lemma}\end{huangse}}
+\newenvironment{exampleenv}{\begin{zise}\begin{example}}{\end{example}\end{zise}}
+\newenvironment{applicationenv}{\begin{zise}\begin{application}}{\end{application}\end{zise}}
+\newenvironment{propositionenv}{\begin{huangse}\begin{proposition}}{\end{proposition}\end{huangse}}
+\newenvironment{corollaryenv}{\begin{huangse}\begin{corollary}}{\end{corollary}\end{huangse}}
+\newenvironment{axiomenv}{\begin{zise}\begin{axiom}}{\end{axiom}\end{zise}}
+\newenvironment{remark}{\begin{pinkenv}\begin{remarkthm}}{\end{remarkthm}\end{pinkenv}}
+\newenvironment{remark*}{\begin{pinkenv}\begin{remarkthm*}}{\end{remarkthm*}\end{pinkenv}}
+\newenvironment{exampleenv*}{\begin{zise}\begin{example*}}{\end{example*}\end{zise}}
+\newenvironment{acknowledgement}{\begin{huangse}}{\end{huangse}}
+\newenvironment{exerciseenv}{\begin{huangse}\begin{exercise}}{\end{exercise}\end{huangse}}
+\newenvironment{solutionenv}{\begin{lvse}\begin{solution}}{\end{solution}\end{lvse}}
+% ————————————————————————————————————目录设置————————————————————————————————————
+\setcounter{tocdepth}{4} % 设置在 ToC 的显示的章节深度
+\setcounter{secnumdepth}{3} % 设置章节的编号深度
+% 数值可选选项：-1 part 0 chapter 1 section 2 section 3 subsubsection 4 paragraph 5 subparagraph
+%\renewcommand{\contentsname}{\bfseries 目\hspace{1em}录}
+% ————————————————————————————————————自定义符号————————————————————————————————————
+\newcommand{\ee}{\mathrm{e}} % 正体e
+\newcommand{\ztd}{\mathrm{d}} % 正体d
+\newcommand{\ii}{\mathrm{i}} % 正体i
+\newcommand{\ztj}{\mathrm{j}} % 正体j
+\newcommand{\ztk}{\mathrm{k}} % 正体k
+\newcommand{\CC}{\mathbb{C}} % 黑板粗体C
+\newcommand{\QQ}{\mathbb{Q}} % 黑板粗体Q
+\newcommand{\RR}{\mathbb{R}} % 黑板粗体R
+\newcommand{\ZZ}{\mathbb{Z}} % 黑板粗体Z
+\newcommand{\NN}{\mathbb{N}} % 黑板粗体N
+\newcommand{\defm}[2]{%
+  \hypertarget{#1}{{#2}}%
+}
+% 引用命令：\refm{标签}{显示内容}
+\newcommand{\refm}[2]{%
+  \hyperlink{#1}{\textcolor{mlv}{#2}}%
+}
+\newcommand{\dis}{\displaystyle}
+\newcommand{\pl}{|\!|}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\DD}{\mathrm{D}}
+\DeclareMathOperator{\Vect}{\mathrm{Vect}}
+\DeclareMathOperator{\Vol}{\mathrm{Vol}}
+\DeclareMathOperator{\Span}{\mathrm{Span}}
+\DeclareMathOperator{\diam}{\mathrm{diam}}
+\DeclareMathOperator{\Aff}{\mathrm{Aff}}
+\DeclareMathOperator{\Conv}{\mathrm{Conv}}
+\DeclareMathOperator{\orb}{\mathrm{orb}}
+\DeclareMathOperator{\GL}{\mathrm{GL}}
+\newcommand{\pa}{\partial}
+\DeclareMathOperator{\Obj}{\mathrm{Obj}}
+\DeclareMathOperator{\Id}{\mathrm{Id}}
+\DeclareMathOperator{\id}{\mathrm{Id}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\set}{\mathbf{set}}
+\DeclareMathOperator{\Aut}{\mathrm{Aut}}
+\DeclareMathOperator{\End}{\mathrm{End}}
+\DeclareMathOperator{\Hom}{\mathrm{Hom}}
+\DeclareMathOperator{\Iso}{\mathrm{Iso}}
+\DeclareMathOperator{\sgn}{\mathrm{sgn}}
+\DeclareMathOperator{\stab}{\mathrm{Stab}}
+\DeclareMathOperator{\supp}{\mathrm{Supp}}
+\DeclareMathOperator{\cc}{C_{c}}
+\DeclareMathOperator{\ccp}{C_{c}^{+}}
+\DeclareMathOperator{\ord}{\mathrm{ord}}
+\DeclareMathOperator{\lcm}{\mathrm{lcm}}
+\DeclareMathOperator{\tr}{\mathrm{tr}}
+\DeclareMathOperator{\Sp}{\mathrm{Sp}}
+\DeclareMathOperator{\Der}{\mathrm{Der}}
+\newcommand{\commutator}[2]{\left[#1, #2\right]_{*}}
+% \newcommand[1]{\anglebracket}{\left \langle {#1} \right \rangle}
+% 该文件包含了自定义符号的设置，格式为\newcommand{\⟨符号名⟩}{⟨符号内容⟩}，如\newcommand{\R}{\mathbb{R}}表示实数集
+
+
+\begin{document}
+
+
+\pagecolor{green!2} 
+\setlength{\parindent}{0em}
+\begin{box3}
+        \begin{center}
+            \Huge 
+    Probability Theory
+    \end{center}
+\end{box3}
+
+
+\pagestyle{empty}
+\newpage
+\nopagecolor
+\pagenumbering{roman}
+%\maketitle
+
+\pagestyle{headings}
+\pagenumbering{roman}
+\setcounter{page}{1}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+
+
+
+\include{Chapters/Chapter1}
+%\include{Chapters/Appendix}
+\end{document}
